@@ -1219,14 +1219,14 @@
   cursor: pointer;
 }
 .swagger-section #header {
-  background-color: #89bf04;
+  background-color: #42b3e7;
   padding: 14px;
 }
 .swagger-section #header a#logo {
   font-size: 1.5em;
   font-weight: bold;
   text-decoration: none;
-  background: transparent url(../images/logo_small.png) no-repeat left center;
+  background: transparent url(../images/favicon.ico) no-repeat left center;
   padding: 20px 0 20px 40px;
   color: white;
 }
