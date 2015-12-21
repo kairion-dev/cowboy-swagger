@@ -27,28 +27,20 @@ trails(Options) ->
       {ok, Val} -> Val;
       _         -> filename:join(cowboy_swagger_priv(), "swagger")
     end,
-
-%%  Redirect = trails:trail(
-%%    "/api-docs/index.html",
-%%    cowboy_static,
-%%    {file, StaticFiles ++ "/index.html"},
-%%    #{get => #{hidden => true}}),
-
+  Redirect = trails:trail(
+    "/api-docs",
+    cowboy_swagger_redirect_handler,
+    {file, StaticFiles ++ "/index.html"},
+    #{get => #{hidden => true}}),
   Static = trails:trail(
     "/api-docs/[...]",
     cowboy_static,
     {dir, StaticFiles, [{mimetypes, cow_mimetypes, all}]},
     #{get => #{hidden => true}}),
-
-
+  MD = #{get => #{hidden => true}},
   Handler = trails:trail(
-    "/api-docs/swagger.json",
-    cowboy_swagger_json_handler,
-    Options,
-    #{get => #{hidden => true}}),
-
-%%  [Redirect, Handler, Static].
-  [Handler, Static].
+    "/api-docs/swagger.json", cowboy_swagger_json_handler, Options, MD),
+  [Redirect, Handler, Static].
 
 %% @private
 -spec cowboy_swagger_priv() -> string().
